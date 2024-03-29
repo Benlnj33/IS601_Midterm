@@ -1,6 +1,37 @@
+import os
+import importlib
 import cmd
 import operator
-import history_manager
+import calculator.history_manager as history_manager
+
+# Function to load plugins
+def load_plugins():
+    plugins = []
+    plugin_dir = os.path.join(os.path.dirname(__file__), 'plugins')
+    for filename in os.listdir(plugin_dir):
+        if filename.endswith('.py') and filename != '__init__.py':
+            module_name = 'plugins.' + filename[:-3]
+            module = importlib.import_module(module_name)
+            for obj_name in dir(module):
+                obj = getattr(module, obj_name)
+                if isinstance(obj, type) and issubclass(obj, Plugin) and obj != Plugin:
+                    plugins.append(obj())
+    return plugins
+
+# Load plugins
+plugins = load_plugins()
+
+# Print loaded plugins
+print("Loaded plugins:")
+for plugin in plugins:
+    print(f"- {plugin.get_name()}")
+
+# Integrate plugin commands into calculator application
+for plugin in plugins:
+    for command, func in plugin.get_commands().items():
+        setattr(CalculatorREPL, 'do_' + command, func)
+
+# actual calculator functions
 
 class CalculatorREPL(cmd.Cmd):
     prompt = 'Bens_calculator> '
