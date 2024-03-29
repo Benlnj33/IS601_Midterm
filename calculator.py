@@ -2,7 +2,16 @@ import os
 import importlib
 import cmd
 import math
+import logging
 from plugin_interface import Plugin
+
+# Configure logging
+logging.basicConfig(filename='calculator.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Example logging statements
+logging.info('Application started')
+logging.debug('Debug message')
+logging.error('Error message')
 
 # Function to load plugins
 def load_plugins():
@@ -21,6 +30,13 @@ def load_plugins():
 class CalculatorREPL(cmd.Cmd):
     prompt = 'Bens_calculator> '
     HISTORY_FILE = 'test.csv'
+
+    def __init__(self):
+        super().__init__()
+        # Set up logging
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.INFO)
+        self.logger.addHandler(logging.FileHandler('calculator.log'))
 
     def do_add(self, arg):
         try:
@@ -65,8 +81,10 @@ class CalculatorREPL(cmd.Cmd):
         try:
             result = eval(arg)
             print('Result:', result)
+            self.logger.info(f'Input: {arg}, Output: {result}')  # Log the input and output
         except Exception as e:
             print('Error:', e)
+            self.logger.error(f'Error: {e}')  # Log errors
 
 # Load plugins
 plugins = load_plugins()
