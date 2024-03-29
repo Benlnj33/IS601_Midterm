@@ -1,8 +1,8 @@
 import os
 import importlib
 import cmd
-import operator
-import calculator.history_manager as history_manager
+import math
+from plugin_interface import Plugin
 
 # Function to load plugins
 def load_plugins():
@@ -17,21 +17,6 @@ def load_plugins():
                 if isinstance(obj, type) and issubclass(obj, Plugin) and obj != Plugin:
                     plugins.append(obj())
     return plugins
-
-# Load plugins
-plugins = load_plugins()
-
-# Print loaded plugins
-print("Loaded plugins:")
-for plugin in plugins:
-    print(f"- {plugin.get_name()}")
-
-# Integrate plugin commands into calculator application
-for plugin in plugins:
-    for command, func in plugin.get_commands().items():
-        setattr(CalculatorREPL, 'do_' + command, func)
-
-# actual calculator functions
 
 class CalculatorREPL(cmd.Cmd):
     prompt = 'Bens_calculator> '
@@ -82,12 +67,19 @@ class CalculatorREPL(cmd.Cmd):
             print('Result:', result)
         except Exception as e:
             print('Error:', e)
-'''
-    def do_load_history(self, arg):
-        history_df = history_manager.load_history()
-        print('Calculation history:')
-        print(history_df)
-'''
+
+# Load plugins
+plugins = load_plugins()
+
+# Print loaded plugins
+print("Loaded plugins:")
+for plugin in plugins:
+    print(f"- {plugin.get_name()}")
+
+# Integrate plugin commands into calculator application
+for plugin in plugins:
+    for command, func in plugin.get_commands().items():
+        setattr(CalculatorREPL, 'do_' + command, func)
 
 if __name__ == '__main__':
     CalculatorREPL().cmdloop()
