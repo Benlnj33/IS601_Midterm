@@ -1,8 +1,10 @@
 import cmd
 import operator
+import history_manager
 
 class CalculatorREPL(cmd.Cmd):
     prompt = 'Bens_calculator> '
+    HISTORY_FILE = 'test.csv'
 
     def do_add(self, arg):
         try:
@@ -49,6 +51,12 @@ class CalculatorREPL(cmd.Cmd):
             print('Result:', result)
         except Exception as e:
             print('Error:', e)
+'''
+    def do_load_history(self, arg):
+        history_df = history_manager.load_history()
+        print('Calculation history:')
+        print(history_df)
+'''
 
 if __name__ == '__main__':
     CalculatorREPL().cmdloop()
