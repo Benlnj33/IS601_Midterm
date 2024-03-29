@@ -1,7 +1,6 @@
 import os
 import importlib
 import cmd
-import math
 import logging
 from plugin_interface import Plugin
 
@@ -37,6 +36,30 @@ class CalculatorREPL(cmd.Cmd):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(logging.FileHandler('calculator.log'))
+
+    def load_plugins(self):
+        plugins_package = 'plugins'
+        plugins_path = os.path.join(os.path.dirname(__file__), plugins_package)
+        if not os.path.exists(plugins_path):
+            self.logger.warning(f"Plugins directory '{plugins_path}' not found.")
+            return
+        plugin_files = [filename[:-3] for filename in os.listdir(plugins_path) if filename.endswith('.py') and filename != '__init__.py']
+        for plugin_name in plugin_files:
+            try:
+                plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
+                self.register_plugin_commands(plugin_module, plugin_name)
+            except ImportError as e:
+                self.logger.error(f"Error importing plugin {plugin_name}: {e}")
+
+    def register_plugin_commands(self, plugin_module, plugin_name):
+        for item_name in dir(plugin_module):
+            item = getattr(plugin_module, item_name)
+            if isinstance(item, type) and issubclass(item, Plugin) and item is not Plugin:
+                # Assuming Plugin is your base class for plugins
+                commands = item().get_commands()
+                for command_name, command_func in commands.items():
+                    setattr(self, 'do_' + command_name, command_func)
+                    self.logger.info(f"Command '{command_name}' from plugin '{plugin_name}' registered.")
 
     def do_add(self, arg):
         try:
