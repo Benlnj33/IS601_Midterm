@@ -2,7 +2,7 @@ import cmd
 import operator
 
 class CalculatorREPL(cmd.Cmd):
-    prompt = 'calculator> '
+    prompt = 'Bens_calculator> '
 
     def do_add(self, arg):
         try:
