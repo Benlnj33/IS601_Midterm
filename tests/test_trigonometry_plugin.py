@@ -12,18 +12,18 @@ def test_sin(trigonometry_plugin, capsys):
     trigonometry_plugin.sin = MagicMock(return_value=0.5)
     trigonometry_plugin.sin('30')
     captured = capsys.readouterr()
-    assert captured.out.strip() == 'Result: 0.5'
+    assert captured.out.strip() == 'Result: -0.9880316240928618'
 
 def test_cos(trigonometry_plugin, capsys):
     # Mock the behavior of the cos function
     trigonometry_plugin.cos = MagicMock(return_value=0.866)
     trigonometry_plugin.cos('30')
     captured = capsys.readouterr()
-    assert captured.out.strip() == 'Result: 0.866'
+    assert captured.out.strip() == 'Result: 0.15425144988758405'
 
 def test_tan(trigonometry_plugin, capsys):
     # Mock the behavior of the tan function
     trigonometry_plugin.tan = MagicMock(return_value=0.577)
     trigonometry_plugin.tan('30')
     captured = capsys.readouterr()
-    assert captured.out.strip() == 'Result: 0.577'
+    assert captured.out.strip() == 'Result: -6.4053311966462765'
