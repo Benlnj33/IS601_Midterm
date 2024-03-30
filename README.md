@@ -1,5 +1,7 @@
 Ben's IS601_Midterm
 
+LINK TO VIDEO: https://drive.google.com/file/d/120e4bEPcio7VxivGu4PlSPHXJdO9lLlT/view?usp=sharing
+
 My name is Ben Lim and I am in Professir William's IS 601-852 class
 
 Here is the Advanced Python Calculator for my Software Engineering Graduate Course Midterm (IS601)
@@ -70,9 +72,9 @@ The Calculator App uses the python-dotenv and os for loading environmental varia
 
 -------------------------------------------------------------------
 
-Real Interface
+REPL Interface
 
-The Calculator App provides a real-time command-line interface where users can interact with the calculator, perform operations, and manage calculation history. The interface is intuitive and user-friendly.
+The Calculator App provides a REPL command-line interface where users can interact with the calculator, perform operations, and manage calculation history. The interface is intuitive and user-friendly.
 
 -------------------------------------------------------------------
 
