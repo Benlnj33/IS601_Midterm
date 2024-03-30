@@ -6,7 +6,7 @@ My name is Ben Lim and I am in Professir William's IS 601-852 class
 Here is the Advanced Python Calculator for my Software Engineering Graduate Course Midterm (IS601)
 This calculator app is a Python based command line calculator that allows users to perform basic arithmetic operations, manage calculation history, and customize functionalities using plugins.
 
-o set up the Calculator App, pls follow these steps that i wrote out:
+To set up the Calculator App, pls follow these steps that i wrote out:
 
 Clone the repository:
 - git clone https://github.com/Benlnj33/IS601_Midterm
