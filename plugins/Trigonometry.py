@@ -7,9 +7,9 @@ class TrigonometryPlugin(Plugin):
 
     def get_commands(self):
         return {
-            'sin': self.sin,
-            'cos': self.cos,
-            'tan': self.tan
+            'sin': self.do_sin,
+            'cos': self.do_cos,
+            'tan': self.do_tan
         }
 
     def do_sin(self, arg):

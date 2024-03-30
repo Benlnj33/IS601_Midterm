@@ -37,20 +37,6 @@ class CalculatorREPL(cmd.Cmd):
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(logging.FileHandler('calculator.log'))
 
-    def load_plugins(self):
-        plugins_package = 'plugins'
-        plugins_path = os.path.join(os.path.dirname(__file__), plugins_package)
-        if not os.path.exists(plugins_path):
-            self.logger.warning(f"Plugins directory '{plugins_path}' not found.")
-            return
-        plugin_files = [filename[:-3] for filename in os.listdir(plugins_path) if filename.endswith('.py') and filename != '__init__.py']
-        for plugin_name in plugin_files:
-            try:
-                plugin_module = importlib.import_module(f'{plugins_package}.{plugin_name}')
-                self.register_plugin_commands(plugin_module, plugin_name)
-            except ImportError as e:
-                self.logger.error(f"Error importing plugin {plugin_name}: {e}")
-
     def register_plugin_commands(self, plugin_module, plugin_name):
         for item_name in dir(plugin_module):
             item = getattr(plugin_module, item_name)
