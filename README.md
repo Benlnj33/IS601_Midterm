@@ -2,7 +2,7 @@
 
 LINK TO VIDEO: https://drive.google.com/file/d/120e4bEPcio7VxivGu4PlSPHXJdO9lLlT/view?usp=sharing
 
-My name is Ben Lim and I am in Professir William's IS 601-852 class
+My name is Ben Lim and I am in Professor William's IS 601-852 class
 Here is the Advanced Python Calculator for my Software Engineering Graduate Course Midterm (IS601)
 This calculator app is a Python based command line calculator that allows users to perform basic arithmetic operations, manage calculation history, and customize functionalities using plugins.
 
