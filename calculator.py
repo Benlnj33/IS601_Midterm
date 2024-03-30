@@ -28,11 +28,9 @@ def load_plugins():
 
 class CalculatorREPL(cmd.Cmd):
     prompt = 'Bens_calculator> '
-    HISTORY_FILE = 'test.csv'
 
     def __init__(self):
         super().__init__()
-        # Set up logging
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.logger.addHandler(logging.FileHandler('calculator.log'))
@@ -41,7 +39,6 @@ class CalculatorREPL(cmd.Cmd):
         for item_name in dir(plugin_module):
             item = getattr(plugin_module, item_name)
             if isinstance(item, type) and issubclass(item, Plugin) and item is not Plugin:
-                # Assuming Plugin is your base class for plugins
                 commands = item().get_commands()
                 for command_name, command_func in commands.items():
                     setattr(self, 'do_' + command_name, command_func)
